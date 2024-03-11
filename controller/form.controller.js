@@ -1,10 +1,10 @@
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
-import { asynchandler } from "../utils/asynchandler.js";
+import { asyncHandler } from "../utils/asynchandler.js";
 import { Form } from "../FormModel/form.model.js";
 
 
-const formData=asynchandler(async(req,res)=>{
+const formData=asyncHandler(async(req,res)=>{
   const {FullName,Email,Number,Age,City,DOB}=req.body;
   console.log("Email : ",FullName,Email,Number,Age,City,DOB)
   console.log(req.body);
@@ -37,7 +37,7 @@ try {
 
 })
 
-const getAllData=asynchandler(async(req,res)=>{
+const getAllData=asyncHandler(async(req,res)=>{
     try {
         const data=await Form.find()
         return res.status(200).json(data)
