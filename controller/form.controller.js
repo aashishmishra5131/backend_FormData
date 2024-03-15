@@ -48,4 +48,34 @@ const getAllData=asyncHandler(async(req,res)=>{
     }
 })
 
- export {formData,getAllData};
+const deleteData = asyncHandler(async (req, res) => {
+    try {
+      const { _id } = req.query; 
+      const data = await Form.findByIdAndDelete(_id);
+      if (!data) {
+        return res.status(404).json({ message: 'Data not found' });
+      }
+      res.status(200).json({ message: 'Data deleted successfully' });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+  
+  const editData=asyncHandler(async(req,res)=>{
+    try {
+       const {_id}=req.query;
+       const newData=req.body;
+       const updateData=await Form.findByIdAndUpdate(_id,newData,{new:"true"});
+       if(!updateData){
+        return res.status(404).json({message:"Data not found"});
+       }
+       res.status(200).json({ message: 'Data updated successfully', data: updateData });
+
+    } catch (error) {
+      return res.status(500).json({message:"Internal server error"});
+    }
+  })
+  
+
+ export {formData,getAllData,deleteData,editData};
